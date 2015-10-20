@@ -12,11 +12,16 @@ var config = {
     markup: {
       path: 'app/',
       files: './app/**/*.html'
+    },
+    styles: {
+      path: 'app/',
+      files: './app/**/*.styl'
     }
   },
   build: {
     scripts: 'build/scrips/',
-    markup: 'build/'
+    markup: 'build/',
+    styles: 'build/styles/',
   }
 }
 
@@ -31,6 +36,13 @@ gulp.task('build-markup', function() {
   return gulp.src(config.source.markup.files)
     .pipe(gulp.dest(config.build.markup));
 });
+
+gulp.task('build-styles', function() {
+  return gulp.src(config.source.styles.files)
+    .pipe($.stylus())
+    .pipe(gulp.dest(config.build.styles));
+});
+
 
 gulp.task('default', function() {
   // place code for your default task here
