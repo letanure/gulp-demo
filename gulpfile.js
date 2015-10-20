@@ -18,6 +18,7 @@ var config = {
 gulp.task('build-scripts', function() {
   return gulp.src(config.source.scripts.files)
     .pipe($.concat('app-build.js'))
+    .pipe($.uglify({mangle: false }))
     .pipe(gulp.dest(config.build.scripts));
 
 });
