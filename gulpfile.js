@@ -1,5 +1,7 @@
-var gulp = require('gulp'),
-  	gulpConcat = require('gulp-concat');
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')({
+  camelize: true
+});
 
 var config = {
   source: {
@@ -11,12 +13,11 @@ var config = {
   build: {
     scripts: 'build/scrips/'
   }
-
 }
 
 gulp.task('build-scripts', function() {
   return gulp.src(config.source.scripts.files)
-    .pipe(gulpConcat('app-build.js'))
+    .pipe($.concat('app-build.js'))
     .pipe(gulp.dest(config.build.scripts));
 
 });

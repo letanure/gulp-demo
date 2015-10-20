@@ -21,6 +21,7 @@
   "homepage": "https://github.com/letanure/gulp-demo#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0"
+    "gulp-concat": "^2.6.0",
+    "gulp-load-plugins": "^1.0.0"
   }
 }
