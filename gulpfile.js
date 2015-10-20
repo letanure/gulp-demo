@@ -28,13 +28,10 @@ var config = {
 gulp.task('build-scripts', function() {
   return gulp.src(config.source.scripts.files)
     .pipe($.concat('app-build.js'))
-    .pipe($.uglify({mangle: false }))
+    .pipe($.uglify({
+      mangle: false
+    }))
     .pipe(gulp.dest(config.build.scripts));
-});
-
-gulp.task('build-markup', function() {
-  return gulp.src(config.source.markup.files)
-    .pipe(gulp.dest(config.build.markup));
 });
 
 gulp.task('build-styles', function() {
@@ -42,6 +39,18 @@ gulp.task('build-styles', function() {
     .pipe($.stylus())
     .pipe(gulp.dest(config.build.styles));
 });
+
+
+gulp.task('build-markup', ['build-scripts', 'build-styles'], function() {
+	// list the development script & style files to inject on markup
+  var sources = gulp.src([config.source.scripts.files, './build/**/*.css'], {
+    read: false
+  });
+  return gulp.src(config.source.markup.files)
+  	.pipe($.inject(sources))
+    .pipe(gulp.dest(config.build.markup));
+});
+
 
 
 gulp.task('default', function() {
