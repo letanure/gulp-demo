@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({
   camelize: true
 });
+var del = require('del');
 
 var mainBowerFiles = require('main-bower-files');
 
@@ -21,16 +22,21 @@ var config = {
     }
   },
   build: {
+  	all: 'build/',
     scripts: 'build/scrips/',
     markup: 'build/',
     styles: 'build/styles/',
   }
 }
 
+gulp.task('clear-build', function(cb) {
+  del(config.build.all, cb);
+});
+
 gulp.task('build-bower', function() {
   return gulp.src(mainBowerFiles())
     .pipe($.concat('vendor.js'))
-    .pipe($.uglify({
+    .pipe($.uglify({	
       mangle: false
     }))
     .pipe(gulp.dest(config.build.scripts));
@@ -50,7 +56,6 @@ gulp.task('build-styles', function() {
     .pipe($.stylus())
     .pipe(gulp.dest(config.build.styles));
 });
-
 
 gulp.task('build-markup', ['build-bower', 'build-scripts', 'build-styles'], function() {
   // list the development script & style files to inject on markup
