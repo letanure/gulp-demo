@@ -8,10 +8,15 @@ var config = {
     scripts: {
       path: 'app/',
       files: './app/**/*.js'
+    },
+    markup: {
+      path: 'app/',
+      files: './app/**/*.html'
     }
   },
   build: {
-    scripts: 'build/scrips/'
+    scripts: 'build/scrips/',
+    markup: 'build/'
   }
 }
 
@@ -20,7 +25,11 @@ gulp.task('build-scripts', function() {
     .pipe($.concat('app-build.js'))
     .pipe($.uglify({mangle: false }))
     .pipe(gulp.dest(config.build.scripts));
+});
 
+gulp.task('build-markup', function() {
+  return gulp.src(config.source.markup.files)
+    .pipe(gulp.dest(config.build.markup));
 });
 
 gulp.task('default', function() {
